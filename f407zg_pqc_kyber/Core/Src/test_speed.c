@@ -10,13 +10,14 @@
 #include "poly.h"
 #include "cpucycles.h"
 #include "speed_print.h"
+#include "main.h"
 
 #define NTESTS 1000
 
 uint64_t t[NTESTS];
 uint8_t seed[KYBER_SYMBYTES] = {0};
 
-int test_speed()
+int test_kyber_speed()
 {
   unsigned int i;
   uint8_t pk[CRYPTO_PUBLICKEYBYTES];
@@ -29,6 +30,12 @@ int test_speed()
   polyvec matrix[KYBER_K];
   poly ap;
 
+  printf("CRYPTO_SECRETKEYBYTES:  %d\n", CRYPTO_SECRETKEYBYTES);
+  printf("CRYPTO_PUBLICKEYBYTES:  %d\n", CRYPTO_PUBLICKEYBYTES);
+  printf("CRYPTO_CIPHERTEXTBYTES: %d\n", CRYPTO_CIPHERTEXTBYTES);
+  printf("CRYPTO_BYTES: %d (uint8_t)\n", CRYPTO_BYTES);
+
+  /*
   perf_counter_reset();
   perf_counter_start();
   for(i=0;i<NTESTS;i++) {
@@ -124,6 +131,7 @@ int test_speed()
     polyvec_decompress(&matrix[0],ct);
   }
   print_results("polyvec_decompress: ", t, NTESTS);
+*/
 
   perf_counter_reset();
   perf_counter_start();

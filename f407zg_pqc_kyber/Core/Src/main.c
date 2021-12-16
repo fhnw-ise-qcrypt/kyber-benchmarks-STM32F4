@@ -60,7 +60,7 @@ static void MX_RNG_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-int test_speed();
+int test_kyber_speed();
 
 /* USER CODE END PFP */
 
@@ -124,7 +124,8 @@ int main(void)
 	  perf_counter_start();
 
 	  // test_keys();
-	  test_speed();
+	  test_xtea_speed();
+	  test_kyber_speed();
 
 	  perf_counter_stop();
 	  time = TIM2->CNT; // time in micro seconds

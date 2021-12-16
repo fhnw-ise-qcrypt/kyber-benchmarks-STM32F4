@@ -28,6 +28,26 @@ static uint64_t average(uint64_t *t, size_t tlen) {
   return acc/tlen;
 }
 
+static uint64_t min(uint64_t *t, size_t tlen){
+	size_t i;
+	uint64_t nr=-1;
+	for(i=0;i<tlen;i++){
+		if(t[i] < nr)
+			nr = t[i];
+	}
+	return nr;
+}
+
+static uint64_t max(uint64_t *t, size_t tlen){
+	size_t i;
+	uint64_t nr=0;
+	for(i=0;i<tlen;i++){
+		if(t[i] > nr)
+			nr = t[i];
+	}
+	return nr;
+}
+
 void print_results(const char *s, uint64_t *t, size_t tlen) {
   size_t i;
   static uint64_t overhead = -1;
@@ -45,8 +65,10 @@ void print_results(const char *s, uint64_t *t, size_t tlen) {
     t[i] = t[i+1] - t[i] - overhead;
 
   printf("%s\n", s);
-  printf("median: %lu cycles/ticks\n", (unsigned long)median(t, tlen));
-  printf("average: %lu cycles/ticks\n", (unsigned long)average(t, tlen));
+  printf("median, average, min, max [cycles/ticks]\n");
+  printf("%lu \t%lu \t%lu \t%lu \n", (unsigned long)median(t, tlen), (unsigned long)average(t, tlen), (unsigned long)min(t, tlen), (unsigned long)max(t, tlen));
+  //printf("median: %lu cycles/ticks\n", (unsigned long)median(t, tlen));
+  //printf("average: %lu cycles/ticks\n", (unsigned long)average(t, tlen));
   printf("\n");
 }
 
