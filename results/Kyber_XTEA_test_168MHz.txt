@@ -1,0 +1,70 @@
+Kyber
+running tests...
+CRYPTO_CIPHERTEXTBYTES: 768
+XTEA_KEY_LENGTH: 128 (uint32_t)
+xtea_set_key: 
+median, average, min, max [cycles/ticks]
+29686 	29698 	29625 	29807 
+
+xtea_enc: 
+median, average, min, max [cycles/ticks]
+348047 	348051 	348044 	348136 
+
+xtea_dec: 
+median, average, min, max [cycles/ticks]
+348077 	348081 	348075 	348169 
+
+CRYPTO_SECRETKEYBYTES:  1632
+CRYPTO_PUBLICKEYBYTES:  800
+CRYPTO_CIPHERTEXTBYTES: 768
+CRYPTO_BYTES: 32 (uint8_t)
+indcpa_keypair: 
+median, average, min, max [cycles/ticks]
+3424178 	3428051 	3421288 	3519896 
+
+indcpa_enc: 
+median, average, min, max [cycles/ticks]
+3471957 	3471982 	3471945 	3472133 
+
+indcpa_dec: 
+median, average, min, max [cycles/ticks]
+961954 	961945 	961885 	962000 
+
+kyber_keypair: 
+median, average, min, max [cycles/ticks]
+4010982 	4014127 	4008254 	4105313 
+
+kyber_encaps: 
+median, average, min, max [cycles/ticks]
+4875168 	575906 	4875092 	4875186 
+
+kyber_decaps: 
+median, average, min, max [cycles/ticks]
+5205424 	906157 	5205312 	5205467 
+
+kex_uake_initA: 
+median, average, min, max [cycles/ticks]
+8884936 	289901 	8882130 	8883708 
+
+kex_uake_sharedB: 
+median, average, min, max [cycles/ticks]
+10169807 	1571273 	10169658 	10169848 
+
+kex_uake_sharedA: 
+median, average, min, max [cycles/ticks]
+5295845 	996583 	5295754 	5295803 
+
+kex_ake_initA: 
+median, average, min, max [cycles/ticks]
+8884895 	288890 	8882351 	8885368 
+
+kex_ake_sharedB: 
+median, average, min, max [cycles/ticks]
+15047856 	2150058 	15047697 	15047744 
+
+kex_ake_sharedA: 
+median, average, min, max [cycles/ticks]
+10500013 	1901439 	10499931 	10500013 
+
+Done!
+running tests...

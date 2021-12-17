@@ -23,29 +23,29 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   9 .ccmram       00000000  10000000  10000000  0002007c  2**0
                   CONTENTS
- 10 .bss          000020c4  20000080  20000080  00020080  2**3
+ 10 .bss          00002054  20000080  20000080  00020080  2**3
                   ALLOC
- 11 ._user_heap_stack 00000604  20002144  20002144  00020080  2**0
+ 11 ._user_heap_stack 00000604  200020d4  200020d4  00020080  2**0
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  0002007c  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00018efa  00000000  00000000  000200ac  2**0
+ 13 .debug_info   00018eee  00000000  00000000  000200ac  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00003c81  00000000  00000000  00038fa6  2**0
+ 14 .debug_abbrev 00003c7a  00000000  00000000  00038f9a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 000012d8  00000000  00000000  0003cc28  2**3
+ 15 .debug_aranges 000012d8  00000000  00000000  0003cc18  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_ranges 000010f0  00000000  00000000  0003df00  2**3
+ 16 .debug_ranges 000010f0  00000000  00000000  0003def0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  00024c85  00000000  00000000  0003eff0  2**0
+ 17 .debug_macro  00024c85  00000000  00000000  0003efe0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001a6e9  00000000  00000000  00063c75  2**0
+ 18 .debug_line   0001a6e9  00000000  00000000  00063c65  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d1c23  00000000  00000000  0007e35e  2**0
+ 19 .debug_str    000d1c22  00000000  00000000  0007e34e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000053  00000000  00000000  0014ff81  2**0
+ 20 .comment      00000053  00000000  00000000  0014ff70  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00005730  00000000  00000000  0014ffd4  2**2
+ 21 .debug_frame  00005730  00000000  00000000  0014ffc4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -512,7 +512,7 @@ int main(void)
   {
  80005e0:	e7db      	b.n	800059a <main+0x32>
  80005e2:	bf00      	nop
- 80005e4:	20000160 	.word	0x20000160
+ 80005e4:	200000f0 	.word	0x200000f0
  80005e8:	0800b0f8 	.word	0x0800b0f8
  80005ec:	0800b100 	.word	0x0800b100
  80005f0:	0800b114 	.word	0x0800b114
@@ -585,65 +585,66 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
  800065e:	f44f 0380 	mov.w	r3, #4194304	; 0x400000
  8000662:	63fb      	str	r3, [r7, #60]	; 0x3c
-  RCC_OscInitStruct.PLL.PLLM = 8;
- 8000664:	2308      	movs	r3, #8
+  RCC_OscInitStruct.PLL.PLLM = 4;
+ 8000664:	2304      	movs	r3, #4
  8000666:	643b      	str	r3, [r7, #64]	; 0x40
-  RCC_OscInitStruct.PLL.PLLN = 336;
- 8000668:	f44f 73a8 	mov.w	r3, #336	; 0x150
- 800066c:	647b      	str	r3, [r7, #68]	; 0x44
+  RCC_OscInitStruct.PLL.PLLN = 168;
+ 8000668:	23a8      	movs	r3, #168	; 0xa8
+ 800066a:	647b      	str	r3, [r7, #68]	; 0x44
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
- 800066e:	2302      	movs	r3, #2
- 8000670:	64bb      	str	r3, [r7, #72]	; 0x48
+ 800066c:	2302      	movs	r3, #2
+ 800066e:	64bb      	str	r3, [r7, #72]	; 0x48
   RCC_OscInitStruct.PLL.PLLQ = 7;
- 8000672:	2307      	movs	r3, #7
- 8000674:	64fb      	str	r3, [r7, #76]	; 0x4c
+ 8000670:	2307      	movs	r3, #7
+ 8000672:	64fb      	str	r3, [r7, #76]	; 0x4c
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 8000676:	f107 0320 	add.w	r3, r7, #32
- 800067a:	4618      	mov	r0, r3
- 800067c:	f001 fbfc 	bl	8001e78 <HAL_RCC_OscConfig>
- 8000680:	4603      	mov	r3, r0
- 8000682:	2b00      	cmp	r3, #0
- 8000684:	d001      	beq.n	800068a <SystemClock_Config+0x96>
+ 8000674:	f107 0320 	add.w	r3, r7, #32
+ 8000678:	4618      	mov	r0, r3
+ 800067a:	f001 fbfd 	bl	8001e78 <HAL_RCC_OscConfig>
+ 800067e:	4603      	mov	r3, r0
+ 8000680:	2b00      	cmp	r3, #0
+ 8000682:	d001      	beq.n	8000688 <SystemClock_Config+0x94>
   {
     Error_Handler();
- 8000686:	f000 fa75 	bl	8000b74 <Error_Handler>
+ 8000684:	f000 fa76 	bl	8000b74 <Error_Handler>
   }
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
- 800068a:	230f      	movs	r3, #15
- 800068c:	60fb      	str	r3, [r7, #12]
+ 8000688:	230f      	movs	r3, #15
+ 800068a:	60fb      	str	r3, [r7, #12]
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
- 800068e:	2302      	movs	r3, #2
- 8000690:	613b      	str	r3, [r7, #16]
+ 800068c:	2302      	movs	r3, #2
+ 800068e:	613b      	str	r3, [r7, #16]
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 8000692:	2300      	movs	r3, #0
- 8000694:	617b      	str	r3, [r7, #20]
+ 8000690:	2300      	movs	r3, #0
+ 8000692:	617b      	str	r3, [r7, #20]
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
- 8000696:	f44f 53a0 	mov.w	r3, #5120	; 0x1400
- 800069a:	61bb      	str	r3, [r7, #24]
+ 8000694:	f44f 53a0 	mov.w	r3, #5120	; 0x1400
+ 8000698:	61bb      	str	r3, [r7, #24]
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
- 800069c:	f44f 5380 	mov.w	r3, #4096	; 0x1000
- 80006a0:	61fb      	str	r3, [r7, #28]
+ 800069a:	f44f 5380 	mov.w	r3, #4096	; 0x1000
+ 800069e:	61fb      	str	r3, [r7, #28]
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
- 80006a2:	f107 030c 	add.w	r3, r7, #12
- 80006a6:	2105      	movs	r1, #5
- 80006a8:	4618      	mov	r0, r3
- 80006aa:	f001 fe5d 	bl	8002368 <HAL_RCC_ClockConfig>
- 80006ae:	4603      	mov	r3, r0
- 80006b0:	2b00      	cmp	r3, #0
- 80006b2:	d001      	beq.n	80006b8 <SystemClock_Config+0xc4>
+ 80006a0:	f107 030c 	add.w	r3, r7, #12
+ 80006a4:	2105      	movs	r1, #5
+ 80006a6:	4618      	mov	r0, r3
+ 80006a8:	f001 fe5e 	bl	8002368 <HAL_RCC_ClockConfig>
+ 80006ac:	4603      	mov	r3, r0
+ 80006ae:	2b00      	cmp	r3, #0
+ 80006b0:	d001      	beq.n	80006b6 <SystemClock_Config+0xc2>
   {
     Error_Handler();
- 80006b4:	f000 fa5e 	bl	8000b74 <Error_Handler>
+ 80006b2:	f000 fa5f 	bl	8000b74 <Error_Handler>
   }
 }
- 80006b8:	bf00      	nop
- 80006ba:	3750      	adds	r7, #80	; 0x50
- 80006bc:	46bd      	mov	sp, r7
- 80006be:	bd80      	pop	{r7, pc}
+ 80006b6:	bf00      	nop
+ 80006b8:	3750      	adds	r7, #80	; 0x50
+ 80006ba:	46bd      	mov	sp, r7
+ 80006bc:	bd80      	pop	{r7, pc}
+ 80006be:	bf00      	nop
  80006c0:	40023800 	.word	0x40023800
  80006c4:	40007000 	.word	0x40007000
 
@@ -683,7 +684,7 @@ static void MX_RNG_Init(void)
  80006e2:	bf00      	nop
  80006e4:	bd80      	pop	{r7, pc}
  80006e6:	bf00      	nop
- 80006e8:	20000150 	.word	0x20000150
+ 80006e8:	200000e0 	.word	0x200000e0
  80006ec:	50060800 	.word	0x50060800
 
 080006f0 <MX_TIM2_Init>:
@@ -794,7 +795,7 @@ static void MX_TIM2_Init(void)
  800077e:	46bd      	mov	sp, r7
  8000780:	bd80      	pop	{r7, pc}
  8000782:	bf00      	nop
- 8000784:	20000160 	.word	0x20000160
+ 8000784:	200000f0 	.word	0x200000f0
  8000788:	000f4240 	.word	0x000f4240
 
 0800078c <MX_USART2_UART_Init>:
@@ -861,7 +862,7 @@ static void MX_USART2_UART_Init(void)
  80007d2:	bf00      	nop
  80007d4:	bd80      	pop	{r7, pc}
  80007d6:	bf00      	nop
- 80007d8:	200001a8 	.word	0x200001a8
+ 80007d8:	20000138 	.word	0x20000138
  80007dc:	40004400 	.word	0x40004400
 
 080007e0 <MX_GPIO_Init>:
@@ -1318,7 +1319,7 @@ PUTCHAR_PROTOTYPE {
  8000ab6:	3708      	adds	r7, #8
  8000ab8:	46bd      	mov	sp, r7
  8000aba:	bd80      	pop	{r7, pc}
- 8000abc:	200001a8 	.word	0x200001a8
+ 8000abc:	20000138 	.word	0x20000138
 
 08000ac0 <perf_counter_reset>:
 void perf_counter_reset(){
@@ -1359,11 +1360,11 @@ void perf_counter_reset(){
  8000af8:	46bd      	mov	sp, r7
  8000afa:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000afe:	4770      	bx	lr
- 8000b00:	200001ec 	.word	0x200001ec
+ 8000b00:	2000017c 	.word	0x2000017c
  8000b04:	e0001004 	.word	0xe0001004
- 8000b08:	2000014c 	.word	0x2000014c
+ 8000b08:	200000dc 	.word	0x200000dc
  8000b0c:	e0001000 	.word	0xe0001000
- 8000b10:	20000148 	.word	0x20000148
+ 8000b10:	200000d8 	.word	0x200000d8
  8000b14:	e000edfc 	.word	0xe000edfc
 
 08000b18 <perf_counter_start>:
@@ -1385,7 +1386,7 @@ void perf_counter_start(){
  8000b30:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000b34:	4770      	bx	lr
  8000b36:	bf00      	nop
- 8000b38:	2000014c 	.word	0x2000014c
+ 8000b38:	200000dc 	.word	0x200000dc
 
 08000b3c <perf_counter_stop>:
 
@@ -1405,7 +1406,7 @@ void perf_counter_stop(){
  8000b50:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000b54:	4770      	bx	lr
  8000b56:	bf00      	nop
- 8000b58:	2000014c 	.word	0x2000014c
+ 8000b58:	200000dc 	.word	0x200000dc
 
 08000b5c <perf_counter_value>:
 
@@ -1421,7 +1422,7 @@ unsigned int perf_counter_value(){
  8000b68:	46bd      	mov	sp, r7
  8000b6a:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000b6e:	4770      	bx	lr
- 8000b70:	200001ec 	.word	0x200001ec
+ 8000b70:	2000017c 	.word	0x2000017c
 
 08000b74 <Error_Handler>:
 /**
@@ -1885,7 +1886,7 @@ void HASH_RNG_IRQHandler(void)
  8000d4e:	bf00      	nop
  8000d50:	bd80      	pop	{r7, pc}
  8000d52:	bf00      	nop
- 8000d54:	20000150 	.word	0x20000150
+ 8000d54:	200000e0 	.word	0x200000e0
 
 08000d58 <_getpid>:
 void initialise_monitor_handles()
@@ -2182,7 +2183,7 @@ void *_sbrk(ptrdiff_t incr)
  8000ed4:	20020000 	.word	0x20020000
  8000ed8:	00000400 	.word	0x00000400
  8000edc:	2000009c 	.word	0x2000009c
- 8000ee0:	20002148 	.word	0x20002148
+ 8000ee0:	200020d8 	.word	0x200020d8
 
 08000ee4 <SystemInit>:
   *         configuration.
@@ -2240,7 +2241,7 @@ static inline uint64_t cpucycles(void) {
  8000f1c:	46bd      	mov	sp, r7
  8000f1e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000f22:	4770      	bx	lr
- 8000f24:	200001ec 	.word	0x200001ec
+ 8000f24:	2000017c 	.word	0x2000017c
 
 08000f28 <test_kyber_speed>:
 
@@ -2592,7 +2593,7 @@ int test_kyber_speed()
  8001274:	0800b138 	.word	0x0800b138
  8001278:	0800b154 	.word	0x0800b154
  800127c:	0800b170 	.word	0x0800b170
- 8001280:	200001f0 	.word	0x200001f0
+ 8001280:	20000180 	.word	0x20000180
  8001284:	0800b18c 	.word	0x0800b18c
  8001288:	200000a0 	.word	0x200000a0
  800128c:	0800b1a0 	.word	0x0800b1a0
@@ -2916,7 +2917,7 @@ int test_kyber_speed()
  80015d2:	372c      	adds	r7, #44	; 0x2c
  80015d4:	46bd      	mov	sp, r7
  80015d6:	bd90      	pop	{r4, r7, pc}
- 80015d8:	200001f0 	.word	0x200001f0
+ 80015d8:	20000180 	.word	0x20000180
  80015dc:	0800b1f0 	.word	0x0800b1f0
  80015e0:	0800b204 	.word	0x0800b204
  80015e4:	0800b218 	.word	0x0800b218
@@ -2940,7 +2941,7 @@ static inline uint64_t cpucycles(void) {
  8001608:	46bd      	mov	sp, r7
  800160a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800160e:	4770      	bx	lr
- 8001610:	200001ec 	.word	0x200001ec
+ 8001610:	2000017c 	.word	0x2000017c
 
 08001614 <test_xtea_speed>:
 
@@ -2950,7 +2951,7 @@ uint64_t t[NTESTS];
 
 int test_xtea_speed() {
  8001614:	b580      	push	{r7, lr}
- 8001616:	f5ad 6da2 	sub.w	sp, sp, #1296	; 0x510
+ 8001616:	f5ad 7d54 	sub.w	sp, sp, #848	; 0x350
  800161a:	af00      	add	r7, sp, #0
 	unsigned int i;
 	uint8_t ct[CRYPTO_CIPHERTEXTBYTES];
@@ -2958,10 +2959,10 @@ int test_xtea_speed() {
 	const uint32_t nonce = (uint32_t) rand();
  800161c:	f008 fd16 	bl	800a04c <rand>
  8001620:	4603      	mov	r3, r0
- 8001622:	f8c7 3508 	str.w	r3, [r7, #1288]	; 0x508
+ 8001622:	f8c7 3348 	str.w	r3, [r7, #840]	; 0x348
 	uint32_t iv[2] = { nonce, 1 };
  8001626:	463b      	mov	r3, r7
- 8001628:	f8d7 2508 	ldr.w	r2, [r7, #1288]	; 0x508
+ 8001628:	f8d7 2348 	ldr.w	r2, [r7, #840]	; 0x348
  800162c:	601a      	str	r2, [r3, #0]
  800162e:	463b      	mov	r3, r7
  8001630:	2201      	movs	r2, #1
@@ -2972,7 +2973,7 @@ int test_xtea_speed() {
  8001638:	4845      	ldr	r0, [pc, #276]	; (8001750 <test_xtea_speed+0x13c>)
  800163a:	f008 fad9 	bl	8009bf0 <iprintf>
 	printf("XTEA_KEY_LENGTH: %d (uint32_t)\n", XTEA_KEY_LENGTH);
- 800163e:	2180      	movs	r1, #128	; 0x80
+ 800163e:	2110      	movs	r1, #16
  8001640:	4844      	ldr	r0, [pc, #272]	; (8001754 <test_xtea_speed+0x140>)
  8001642:	f008 fad5 	bl	8009bf0 <iprintf>
 
@@ -2982,27 +2983,27 @@ int test_xtea_speed() {
  800164a:	f7ff fa65 	bl	8000b18 <perf_counter_start>
 	for (i = 0; i < NTESTS; i++) {
  800164e:	2300      	movs	r3, #0
- 8001650:	f8c7 350c 	str.w	r3, [r7, #1292]	; 0x50c
+ 8001650:	f8c7 334c 	str.w	r3, [r7, #844]	; 0x34c
  8001654:	e015      	b.n	8001682 <test_xtea_speed+0x6e>
 		t[i] = cpucycles();
  8001656:	f7ff ffcd 	bl	80015f4 <cpucycles>
  800165a:	4602      	mov	r2, r0
  800165c:	460b      	mov	r3, r1
  800165e:	483e      	ldr	r0, [pc, #248]	; (8001758 <test_xtea_speed+0x144>)
- 8001660:	f8d7 150c 	ldr.w	r1, [r7, #1292]	; 0x50c
+ 8001660:	f8d7 134c 	ldr.w	r1, [r7, #844]	; 0x34c
  8001664:	00c9      	lsls	r1, r1, #3
  8001666:	4401      	add	r1, r0
  8001668:	e9c1 2300 	strd	r2, r3, [r1]
 		csp_xtea_set_key(key, XTEA_KEY_LENGTH);
  800166c:	f107 0308 	add.w	r3, r7, #8
- 8001670:	2180      	movs	r1, #128	; 0x80
+ 8001670:	2110      	movs	r1, #16
  8001672:	4618      	mov	r0, r3
  8001674:	f008 f964 	bl	8009940 <csp_xtea_set_key>
 	for (i = 0; i < NTESTS; i++) {
- 8001678:	f8d7 350c 	ldr.w	r3, [r7, #1292]	; 0x50c
+ 8001678:	f8d7 334c 	ldr.w	r3, [r7, #844]	; 0x34c
  800167c:	3301      	adds	r3, #1
- 800167e:	f8c7 350c 	str.w	r3, [r7, #1292]	; 0x50c
- 8001682:	f8d7 350c 	ldr.w	r3, [r7, #1292]	; 0x50c
+ 800167e:	f8c7 334c 	str.w	r3, [r7, #844]	; 0x34c
+ 8001682:	f8d7 334c 	ldr.w	r3, [r7, #844]	; 0x34c
  8001686:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
  800168a:	d3e4      	bcc.n	8001656 <test_xtea_speed+0x42>
 	}
@@ -3018,28 +3019,28 @@ int test_xtea_speed() {
  800169c:	f7ff fa3c 	bl	8000b18 <perf_counter_start>
 	for (i = 0; i < NTESTS; i++) {
  80016a0:	2300      	movs	r3, #0
- 80016a2:	f8c7 350c 	str.w	r3, [r7, #1292]	; 0x50c
+ 80016a2:	f8c7 334c 	str.w	r3, [r7, #844]	; 0x34c
  80016a6:	e017      	b.n	80016d8 <test_xtea_speed+0xc4>
 		t[i] = cpucycles();
  80016a8:	f7ff ffa4 	bl	80015f4 <cpucycles>
  80016ac:	4602      	mov	r2, r0
  80016ae:	460b      	mov	r3, r1
  80016b0:	4829      	ldr	r0, [pc, #164]	; (8001758 <test_xtea_speed+0x144>)
- 80016b2:	f8d7 150c 	ldr.w	r1, [r7, #1292]	; 0x50c
+ 80016b2:	f8d7 134c 	ldr.w	r1, [r7, #844]	; 0x34c
  80016b6:	00c9      	lsls	r1, r1, #3
  80016b8:	4401      	add	r1, r0
  80016ba:	e9c1 2300 	strd	r2, r3, [r1]
 		csp_xtea_encrypt(ct, CRYPTO_CIPHERTEXTBYTES, iv);
  80016be:	463a      	mov	r2, r7
- 80016c0:	f507 7302 	add.w	r3, r7, #520	; 0x208
+ 80016c0:	f107 0348 	add.w	r3, r7, #72	; 0x48
  80016c4:	f44f 7140 	mov.w	r1, #768	; 0x300
  80016c8:	4618      	mov	r0, r3
  80016ca:	f008 f953 	bl	8009974 <csp_xtea_encrypt>
 	for (i = 0; i < NTESTS; i++) {
- 80016ce:	f8d7 350c 	ldr.w	r3, [r7, #1292]	; 0x50c
+ 80016ce:	f8d7 334c 	ldr.w	r3, [r7, #844]	; 0x34c
  80016d2:	3301      	adds	r3, #1
- 80016d4:	f8c7 350c 	str.w	r3, [r7, #1292]	; 0x50c
- 80016d8:	f8d7 350c 	ldr.w	r3, [r7, #1292]	; 0x50c
+ 80016d4:	f8c7 334c 	str.w	r3, [r7, #844]	; 0x34c
+ 80016d8:	f8d7 334c 	ldr.w	r3, [r7, #844]	; 0x34c
  80016dc:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
  80016e0:	d3e2      	bcc.n	80016a8 <test_xtea_speed+0x94>
 	}
@@ -3055,28 +3056,28 @@ int test_xtea_speed() {
  80016f2:	f7ff fa11 	bl	8000b18 <perf_counter_start>
 	for (i = 0; i < NTESTS; i++) {
  80016f6:	2300      	movs	r3, #0
- 80016f8:	f8c7 350c 	str.w	r3, [r7, #1292]	; 0x50c
+ 80016f8:	f8c7 334c 	str.w	r3, [r7, #844]	; 0x34c
  80016fc:	e017      	b.n	800172e <test_xtea_speed+0x11a>
 		t[i] = cpucycles();
  80016fe:	f7ff ff79 	bl	80015f4 <cpucycles>
  8001702:	4602      	mov	r2, r0
  8001704:	460b      	mov	r3, r1
  8001706:	4814      	ldr	r0, [pc, #80]	; (8001758 <test_xtea_speed+0x144>)
- 8001708:	f8d7 150c 	ldr.w	r1, [r7, #1292]	; 0x50c
+ 8001708:	f8d7 134c 	ldr.w	r1, [r7, #844]	; 0x34c
  800170c:	00c9      	lsls	r1, r1, #3
  800170e:	4401      	add	r1, r0
  8001710:	e9c1 2300 	strd	r2, r3, [r1]
 		csp_xtea_decrypt(ct, CRYPTO_CIPHERTEXTBYTES, iv); //(ct, CRYPTO_CIPHERTEXTBYTES, iv);
  8001714:	463a      	mov	r2, r7
- 8001716:	f507 7302 	add.w	r3, r7, #520	; 0x208
+ 8001716:	f107 0348 	add.w	r3, r7, #72	; 0x48
  800171a:	f44f 7140 	mov.w	r1, #768	; 0x300
  800171e:	4618      	mov	r0, r3
  8001720:	f008 f97e 	bl	8009a20 <csp_xtea_decrypt>
 	for (i = 0; i < NTESTS; i++) {
- 8001724:	f8d7 350c 	ldr.w	r3, [r7, #1292]	; 0x50c
+ 8001724:	f8d7 334c 	ldr.w	r3, [r7, #844]	; 0x34c
  8001728:	3301      	adds	r3, #1
- 800172a:	f8c7 350c 	str.w	r3, [r7, #1292]	; 0x50c
- 800172e:	f8d7 350c 	ldr.w	r3, [r7, #1292]	; 0x50c
+ 800172a:	f8c7 334c 	str.w	r3, [r7, #844]	; 0x34c
+ 800172e:	f8d7 334c 	ldr.w	r3, [r7, #844]	; 0x34c
  8001732:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
  8001736:	d3e2      	bcc.n	80016fe <test_xtea_speed+0xea>
 	}
@@ -3090,12 +3091,12 @@ int test_xtea_speed() {
  8001744:	2300      	movs	r3, #0
 }
  8001746:	4618      	mov	r0, r3
- 8001748:	f507 67a2 	add.w	r7, r7, #1296	; 0x510
+ 8001748:	f507 7754 	add.w	r7, r7, #848	; 0x350
  800174c:	46bd      	mov	sp, r7
  800174e:	bd80      	pop	{r7, pc}
  8001750:	0800b264 	.word	0x0800b264
  8001754:	0800b280 	.word	0x0800b280
- 8001758:	200001f0 	.word	0x200001f0
+ 8001758:	20000180 	.word	0x20000180
  800175c:	0800b2a0 	.word	0x0800b2a0
  8001760:	0800b2b0 	.word	0x0800b2b0
  8001764:	0800b2bc 	.word	0x0800b2bc
@@ -3189,7 +3190,7 @@ LoopFillZerobss:
   ldr r2, =_sbss
  80017b0:	20000080 	.word	0x20000080
   ldr r4, =_ebss
- 80017b4:	20002144 	.word	0x20002144
+ 80017b4:	200020d4 	.word	0x200020d4
 
 080017b8 <ADC_IRQHandler>:
  * @retval None       
@@ -3352,7 +3353,7 @@ __weak void HAL_IncTick(void)
  800187c:	4770      	bx	lr
  800187e:	bf00      	nop
  8001880:	20000008 	.word	0x20000008
- 8001884:	20002130 	.word	0x20002130
+ 8001884:	200020c0 	.word	0x200020c0
 
 08001888 <HAL_GetTick>:
   * @note This function is declared as __weak to be overwritten in case of other 
@@ -3372,7 +3373,7 @@ __weak uint32_t HAL_GetTick(void)
  8001894:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001898:	4770      	bx	lr
  800189a:	bf00      	nop
- 800189c:	20002130 	.word	0x20002130
+ 800189c:	200020c0 	.word	0x200020c0
 
 080018a0 <HAL_Delay>:
   *       implementations in user file.
@@ -8539,7 +8540,7 @@ static inline uint64_t cpucycles(void) {
  8003744:	46bd      	mov	sp, r7
  8003746:	f85d 7b04 	ldr.w	r7, [sp], #4
  800374a:	4770      	bx	lr
- 800374c:	200001ec 	.word	0x200001ec
+ 800374c:	2000017c 	.word	0x2000017c
 
 08003750 <cpucycles_overhead>:
 #include <stdint.h>
@@ -19054,7 +19055,7 @@ int csp_xtea_set_key(const void * key, uint32_t keylen) {
 	/* Copy key */
 	memcpy(csp_xtea_key, hash, XTEA_KEY_LENGTH);
  8009958:	f107 030c 	add.w	r3, r7, #12
- 800995c:	2280      	movs	r2, #128	; 0x80
+ 800995c:	2210      	movs	r2, #16
  800995e:	4619      	mov	r1, r3
  8009960:	4803      	ldr	r0, [pc, #12]	; (8009970 <csp_xtea_set_key+0x30>)
  8009962:	f000 f92e 	bl	8009bc2 <memcpy>
@@ -20408,25 +20409,25 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800a48c:	4801      	ldr	r0, [pc, #4]	; (800a494 <__sfp_lock_acquire+0x8>)
  800a48e:	f7ff bb96 	b.w	8009bbe <__retarget_lock_acquire_recursive>
  800a492:	bf00      	nop
- 800a494:	2000213c 	.word	0x2000213c
+ 800a494:	200020cc 	.word	0x200020cc
 
 0800a498 <__sfp_lock_release>:
  800a498:	4801      	ldr	r0, [pc, #4]	; (800a4a0 <__sfp_lock_release+0x8>)
  800a49a:	f7ff bb91 	b.w	8009bc0 <__retarget_lock_release_recursive>
  800a49e:	bf00      	nop
- 800a4a0:	2000213c 	.word	0x2000213c
+ 800a4a0:	200020cc 	.word	0x200020cc
 
 0800a4a4 <__sinit_lock_acquire>:
  800a4a4:	4801      	ldr	r0, [pc, #4]	; (800a4ac <__sinit_lock_acquire+0x8>)
  800a4a6:	f7ff bb8a 	b.w	8009bbe <__retarget_lock_acquire_recursive>
  800a4aa:	bf00      	nop
- 800a4ac:	20002137 	.word	0x20002137
+ 800a4ac:	200020c7 	.word	0x200020c7
 
 0800a4b0 <__sinit_lock_release>:
  800a4b0:	4801      	ldr	r0, [pc, #4]	; (800a4b8 <__sinit_lock_release+0x8>)
  800a4b2:	f7ff bb85 	b.w	8009bc0 <__retarget_lock_release_recursive>
  800a4b6:	bf00      	nop
- 800a4b8:	20002137 	.word	0x20002137
+ 800a4b8:	200020c7 	.word	0x200020c7
 
 0800a4bc <__sinit>:
  800a4bc:	b510      	push	{r4, lr}
@@ -20742,7 +20743,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800a78a:	e7c7      	b.n	800a71c <_free_r+0x28>
  800a78c:	b003      	add	sp, #12
  800a78e:	bd30      	pop	{r4, r5, pc}
- 800a790:	20000140 	.word	0x20000140
+ 800a790:	200000d0 	.word	0x200000d0
 
 0800a794 <_malloc_r>:
  800a794:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
@@ -20821,8 +20822,8 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800a83a:	d1dd      	bne.n	800a7f8 <_malloc_r+0x64>
  800a83c:	e7cf      	b.n	800a7de <_malloc_r+0x4a>
  800a83e:	bf00      	nop
- 800a840:	20000140 	.word	0x20000140
- 800a844:	20000144 	.word	0x20000144
+ 800a840:	200000d0 	.word	0x200000d0
+ 800a844:	200000d4 	.word	0x200000d4
 
 0800a848 <__sfputc_r>:
  800a848:	6893      	ldr	r3, [r2, #8]
@@ -21532,7 +21533,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800aeca:	b103      	cbz	r3, 800aece <_sbrk_r+0x1a>
  800aecc:	6023      	str	r3, [r4, #0]
  800aece:	bd38      	pop	{r3, r4, r5, pc}
- 800aed0:	20002140 	.word	0x20002140
+ 800aed0:	200020d0 	.word	0x200020d0
 
 0800aed4 <__sread>:
  800aed4:	b510      	push	{r4, lr}
@@ -21610,7 +21611,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800af76:	b103      	cbz	r3, 800af7a <_write_r+0x1e>
  800af78:	6023      	str	r3, [r4, #0]
  800af7a:	bd38      	pop	{r3, r4, r5, pc}
- 800af7c:	20002140 	.word	0x20002140
+ 800af7c:	200020d0 	.word	0x200020d0
 
 0800af80 <abort>:
  800af80:	b508      	push	{r3, lr}
@@ -21634,7 +21635,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800afa6:	b103      	cbz	r3, 800afaa <_close_r+0x1a>
  800afa8:	6023      	str	r3, [r4, #0]
  800afaa:	bd38      	pop	{r3, r4, r5, pc}
- 800afac:	20002140 	.word	0x20002140
+ 800afac:	200020d0 	.word	0x200020d0
 
 0800afb0 <_fstat_r>:
  800afb0:	b538      	push	{r3, r4, r5, lr}
@@ -21652,7 +21653,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800afca:	6023      	str	r3, [r4, #0]
  800afcc:	bd38      	pop	{r3, r4, r5, pc}
  800afce:	bf00      	nop
- 800afd0:	20002140 	.word	0x20002140
+ 800afd0:	200020d0 	.word	0x200020d0
 
 0800afd4 <_isatty_r>:
  800afd4:	b538      	push	{r3, r4, r5, lr}
@@ -21668,7 +21669,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800afea:	b103      	cbz	r3, 800afee <_isatty_r+0x1a>
  800afec:	6023      	str	r3, [r4, #0]
  800afee:	bd38      	pop	{r3, r4, r5, pc}
- 800aff0:	20002140 	.word	0x20002140
+ 800aff0:	200020d0 	.word	0x200020d0
 
 0800aff4 <_lseek_r>:
  800aff4:	b538      	push	{r3, r4, r5, lr}
@@ -21686,19 +21687,19 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800b00e:	b103      	cbz	r3, 800b012 <_lseek_r+0x1e>
  800b010:	6023      	str	r3, [r4, #0]
  800b012:	bd38      	pop	{r3, r4, r5, pc}
- 800b014:	20002140 	.word	0x20002140
+ 800b014:	200020d0 	.word	0x200020d0
 
 0800b018 <__malloc_lock>:
  800b018:	4801      	ldr	r0, [pc, #4]	; (800b020 <__malloc_lock+0x8>)
  800b01a:	f7fe bdd0 	b.w	8009bbe <__retarget_lock_acquire_recursive>
  800b01e:	bf00      	nop
- 800b020:	20002138 	.word	0x20002138
+ 800b020:	200020c8 	.word	0x200020c8
 
 0800b024 <__malloc_unlock>:
  800b024:	4801      	ldr	r0, [pc, #4]	; (800b02c <__malloc_unlock+0x8>)
  800b026:	f7fe bdcb 	b.w	8009bc0 <__retarget_lock_release_recursive>
  800b02a:	bf00      	nop
- 800b02c:	20002138 	.word	0x20002138
+ 800b02c:	200020c8 	.word	0x200020c8
 
 0800b030 <_read_r>:
  800b030:	b538      	push	{r3, r4, r5, lr}
@@ -21716,7 +21717,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800b04a:	b103      	cbz	r3, 800b04e <_read_r+0x1e>
  800b04c:	6023      	str	r3, [r4, #0]
  800b04e:	bd38      	pop	{r3, r4, r5, pc}
- 800b050:	20002140 	.word	0x20002140
+ 800b050:	200020d0 	.word	0x200020d0
 
 0800b054 <_raise_r>:
  800b054:	291f      	cmp	r1, #31
@@ -21778,7 +21779,7 @@ inline uint32_t __attribute__ ((__const__)) csp_htobe32(uint32_t h32) {
  800b0ce:	6023      	str	r3, [r4, #0]
  800b0d0:	bd38      	pop	{r3, r4, r5, pc}
  800b0d2:	bf00      	nop
- 800b0d4:	20002140 	.word	0x20002140
+ 800b0d4:	200020d0 	.word	0x200020d0
 
 0800b0d8 <_getpid_r>:
  800b0d8:	f7f5 be3e 	b.w	8000d58 <_getpid>

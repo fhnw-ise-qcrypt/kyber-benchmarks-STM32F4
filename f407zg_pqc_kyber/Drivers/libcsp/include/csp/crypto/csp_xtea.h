@@ -33,8 +33,8 @@ extern "C" {
 #endif
 
 #define XTEA_BLOCKSIZE 	8
-#define XTEA_ROUNDS 	32
-#define XTEA_KEY_LENGTH	8 //16
+#define XTEA_ROUNDS 	    32
+#define XTEA_KEY_LENGTH	16
 
 /**
    Set XTEA key
